@@ -1,0 +1,19 @@
+{% load static %}
+<div class="fast-add-post">
+    <form action=".{% url 'post:add_post' %}" method="post" enctype='multipart/form-data'>
+        <div class="form__left">
+            {{form.text}}
+        </div>
+        <div class="form__right">
+            <label class="fast-add-post__file" for="id_img">
+                {{form.img}}
+                <img src="{% static 'icons/camera.svg' %}" alt="">
+            </label>
+            <label class="fast-add-post__send" for="fast-add-post__button">
+                <button id="fast-add-post__button" type="submit"></button>
+                <img src="{% static 'icons/right-arrow.svg' %}" alt="">
+            </label>
+        </div>
+        {% csrf_token %}
+    </form>
+</div>

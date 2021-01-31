@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+<!-- Title -->
+{% block title %}Registration{% endblock %}
+
+{% block body %}
+    {% if messages %}
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+    {% endif %}
+    <form action="." method="post">
+        {{form.as_p}}
+        {% csrf_token %}
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+{% endblock %}

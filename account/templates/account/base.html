@@ -1,0 +1,173 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+        
+        <!-- Useful meta tags -->
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="robots" content="index, follow">
+        <meta name="google" content="notranslate">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="description" content="">
+        
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    
+    <body class="">
+        <header class="header">
+            <div class="header__left">
+                <button class="burger">
+                    <span>
+                        burger
+                    </span>
+                </button>
+                <nav>
+                    <ul class="header__ul">
+                        <li class="nav__link">
+                            <a class="nav__item" href="{% url 'home' %}">
+                                Главная
+                            </a>
+                        </li>
+                        <li class="nav__link">
+                            <a class="nav__item has-subnav" href="#">Статьи</a>
+                            <ul class="subnav">
+                                <li class="subnav__link">
+                                    <a class="subnav__item" href="#">Создание сайтов</a>
+                                </li>
+                                <li class="subnav__link">
+                                    <a class="subnav__item" href="#">Интернет маркетинг</a>
+                                </li>
+                                <li class="subnav__link">
+                                    <a class="subnav__item" href="#">Продвижение видео</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav__link"><a class="nav__item" href="#">Обо мне</a></li>
+                        <li class="nav__link"><a class="nav__item" href="#">Реклама</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header__right">
+                <nav>
+                    <ul>
+                        {% if user.is_authenticated %}
+                            <li class="nav__link">
+                                <a class="nav__item" href="{% url 'account:profile' %}">Профиль</a>
+                            </li>
+                            <li class="nav__link">
+                                <a class="nav__item" href="{% url 'logout' %}">Выйти</a>
+                            </li>
+                        {% else %}
+                            <li class="nav__link">
+                                <a class="nav__item" href="{% url 'login' %}">Войти</a>
+                            </li>
+                            <li class="nav__link">
+                                <a class="nav__item" href="{% url 'registration' %}">Регистрация</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <form class="search__form" action="/search/" method="get">
+                    <input class="search" placeholder="Поиск по блогу" type="text" name="query">
+                </form>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+            <div class="sidebar__header">
+                <img src="{{user.profile.background.url}}" alt="">
+            </div>
+            <div class="sidebar__profile">
+                <div class="profile__wrap">
+                    <img class="profile__img" src="{{user.profile.avatar.url}}" alt="">
+                    <div class="profile__info">
+                        <p class="info__name">{{user.first_name}}&nbsp;{{user.last_name}}</p>
+                        {% if user.profile.description %}
+                            <p class="info__desc">{{user.profile.description}}</p>
+                        {% endif %} 
+                    </div>
+                </div>
+                
+                <ul class="profile__socials">
+                    <li><a class="" href="https://www.instagram.com/ggueros/" target="_blank">
+                        <img src="{% static 'icons/instagram.svg' %}" alt="">
+                    </a></li>
+                    <li><a class="" href="https://vk.com/asdas5" target="_blank">
+                        <img src="{% static 'icons/vk.svg' %}" alt="">
+                    </a></li>
+                    <li><a class="" href="#" target="_blank">
+                        <img src="{% static 'icons/pinterest.svg' %}" alt="">
+                    </a></li>
+                </ul>
+                {% if user.profile.about %}
+                    <div class="profile__about">
+                        <p>{{user.profile.about}}</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <nav class="sidebar__nav">
+                <ul class="header__ul">
+                    <li class="nav__link">
+                        <a class="nav__item" href="{% url 'home' %}">
+                            Главная
+                        </a>
+                    </li>
+                    <li class="nav__link">
+                        <a class="nav__item has-subnav" href="#">Статьи</a>
+                        <ul class="subnav">
+                            <li class="subnav__link">
+                                <a class="subnav__item" href="#">Создание сайтов</a>
+                            </li>
+                            <li class="subnav__link">
+                                <a class="subnav__item" href="#">Интернет маркетинг</a>
+                            </li>
+                            <li class="subnav__link">
+                                <a class="subnav__item" href="#">Продвижение видео</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav__link nav__link--active"><a class="nav__item" href="#">Обо мне</a></li>
+                    <li class="nav__link"><a class="nav__item" href="#">Реклама</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav__link">
+                            <a class="nav__item" href="{% url 'account:profile' %}">Профиль</a>
+                        </li>
+                        <li class="nav__link">
+                            <a class="nav__item" href="{% url 'logout' %}">Выйти</a>
+                        </li>
+                    {% else %}
+                        <li class="nav__link">
+                            <a class="nav__item" href="{% url 'login' %}">Войти</a>
+                        </li>
+                        <li class="nav__link">
+                            <a class="nav__item" href="{% url 'registration' %}">Регистрация</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            </div>
+            <div class="sidebar__footer">
+                <a class="btn btn--red" href="https://github.com/usweiter" target="_blank">My robberies</a>
+                <button class="btn btn--blue" type="button">Write me</button>
+            </div>
+        </aside>
+
+        <div class="page">
+            <main class="main">
+                {% block body %}{% endblock %}
+            </main>
+        </div>
+        <div class="modal">
+            <div class="modal__content">
+                
+            </div>
+        </div>
+    </body>
+</html>

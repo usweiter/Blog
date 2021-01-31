@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+<!-- Title -->
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    {% if form.errors %}
+        <h1>Неправильно введен логин или пароль.</h1>
+    {% endif %}
+    <div class="login">
+        <h1 class="page__title">Вход</h1>
+        <form class="login__form" action="." method="post">
+            {{form.username}}
+            {{form.password}}
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{next}}">
+            <button type="submit">Войти</button>
+        </form>
+        <div>
+            <a href="{% url 'password_reset' %}">восстановить</a>
+            <a href="{% url 'registration' %}">регистрация</a>
+        </div>
+    </div>
+    
+{% endblock %}

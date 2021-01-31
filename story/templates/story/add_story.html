@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+
+{% block body %}
+    <form action="." method="post" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button class="--mrg-t" type="submit">Добавить историю</button>
+    </form>
+{% endblock %}

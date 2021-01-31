@@ -1,0 +1,24 @@
+{% if stories %}
+    <div class="stories">
+        {% for story in stories %}
+            <div class="stories__item" data-modal="story">
+                {% if story.title %}
+                    <div class="stories__title">
+                        {{story.title}}
+                    </div>
+                {% endif %}
+                <img class="stories__preview" src="{{story.image.url}}" alt="">
+                <time class="stories__date" datetime="{{story.created|date:'Y-m-d'}}">
+                    {{story.created|date:'Y-m-d'}}
+                </time>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="stories__item">
+        <div class="stories__title">
+            <a href="{% url 'story:add_story' %}">Добавить историю</a>
+        </div>
+        <img class="stories__preview" src="https://placehold.it/200x300" alt="">
+    </div>
+{% endif %}

@@ -1,0 +1,70 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+<!-- Title -->
+{% block title %}Post{% endblock %}
+{% block body %}
+<!-- Post -->
+<article class="post">
+    <div class="post__body">
+        <div class="post__actions">
+            <a class="grey_link" href="#">вернуться назад</a>
+            <div class="post__share">
+                <a class="grey_link" href="#">поделиться</a>
+                <a class="grey_link" href="#"><img class="share_icon" src="{% static 'icons/share.svg' %}" alt=""></a>
+            </div>
+        </div>
+        <div class="post__title">
+            <h1>{{post.title}}</h1>
+            <ul class="post__info">
+                <li>
+                    <a class="grey_link" href="#">
+                        <time datetime="{{post.published|date:'d.m.Y'}}">
+                            {{post.published|date:'d.m.Y'}}
+                        </time>
+                    </a>
+                </li>
+                {% if post.tags %}
+                    {% for tag in post.tags.all%}
+                        <li>
+                            <a class="grey_link" href="{% url 'post:posts_by_tag' tag %}">
+                                {{tag}}
+                            </a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        {% if post.img %}
+            <img class="post__img" src="{{post.img.url}}">
+        {% endif %}
+        
+        <div class="post__text">{{post.text|safe}}</div>
+
+        <!-- Related posts -->
+        <div class="post__related">
+            <h2>Интересно почитать</h2>
+            <div class="related__posts">
+                {% for related_post in related_post_list %}
+                    <div class="related__items">
+                        <h3>
+                            <a href="{{related_post.get_absolute_url}}">
+                                {% if related_post.title %}
+                                    {{related_post.title}}
+                                {% else %}
+                                    {{related_post.text|truncatechars:50|safe}}
+                                {% endif %}
+                            </a>
+                        </h3>
+                        <time datetime="{{related_post.published|date:'Y-m-d'}}">{{related_post.published|date:'d.m.Y'}}</time>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Comments -->
+        {% include 'comments/comments.html' %}
+    </div>
+</article>
+<script src="assets/js/app.min.js"></script>
+{% endblock %}

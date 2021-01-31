@@ -1,0 +1,31 @@
+{% load home_filters %}
+
+{% for post in posts %}
+    <article class="post --unframed">
+        {% if post.img %}
+            <img class="post__img" src="{{post.img.url}}">
+        {% endif %}
+
+        <div class="post__body">
+            {% if post.title %}
+                <div class="post__title">
+                    <h1>{{post.title}}</h1>
+                </div>
+            {% endif %}
+            <div class="post__text">{{post.text|safe}}</div>
+            <div class="post__footer">
+                <ul class="post__info">
+                    <li>
+                        <time class="grey_link" datetime="{{post.published|date:'Y-m-d'}}">{{post.published|date:'Y-m-d'}}</time>
+                    </li>
+                    {% for tag in post.tags.all %}
+                        <li>
+                            <a class="grey_link" href="{% url 'post:posts_by_tag' tag %}">{{tag}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <a class="do_read" href="{{post.get_absolute_url}}" target="_blank">читать</a>
+            </div>
+        </div>
+    </article>
+{% endfor %}

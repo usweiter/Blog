@@ -1,0 +1,13 @@
+{% extends 'account/base.html' %}
+
+<!-- Title -->
+{% block title %}Account{% endblock %}
+{% block body %}
+    <!-- Stories -->
+    {% include 'story/stories.html' %}
+
+    {% if posts %}
+    {% else %}
+        <h1>Пользователь ничего не опубликовал.</h1>
+    {% endif %}
+{% endblock %}

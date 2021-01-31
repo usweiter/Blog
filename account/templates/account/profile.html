@@ -1,0 +1,52 @@
+{% extends 'account/base.html' %}
+
+<!-- Title -->
+{% block title %}Edit profile{% endblock %}
+
+{% block body %}
+    <h1 class="page__title">Редактировать профиль</h1>
+    <form class="profile__form" action="." method="post" enctype="multipart/form-data">
+        <div class="form__left">
+            {{form_user.as_p}}
+
+            {{form_profile.date_of_birth}}
+            {{form_profile.description}}
+            {{form_profile.about}}
+            <p><button type="submit">Изменить</button></p>
+            <a class="change_link" href="{% url 'password_change' %}">
+                Изменить пароль
+            </a>
+        </div>
+        <div class="form__right">
+            <label class="edit-profile__avatar" for="id_avatar">
+                <input id="id_avatar" type="file" name="avatar" accept="image/*">
+                {% if form_profile.avatar %}
+                    <img src="{{profile_avatar.url}}" alt="">
+                {% else %}
+                    <img src="https://placehold.it/150" alt="">
+                {% endif %}
+                <p class="change_link" href="#">Изменить аватар</p>
+            </label>
+            <label class="edit-profile__background" for="id_background">
+                <input id="id_background" type="file" name="background" accept="image/*">
+                {% if form_profile.background %}
+                    <img src="{{profile_backround.url}}" alt="">
+                {% else %}
+                    <img src="https://placehold.it/150" alt="">
+                {% endif %}
+                <p class="change_link" href="#">Изменить бэкграунд</p>
+            </label>
+        </div>
+        {% csrf_token %}
+    </form>
+    {% if request.user.is_superuser %}
+        <div class="fill_wall">
+            <a class="change_link" href="{% url 'post:add_post' %}">
+                Добавить статью
+            </a>
+            <a class="change_link" href="{% url 'story:add_story' %}">
+                Добавить историю
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

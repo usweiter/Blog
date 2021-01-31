@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+<!-- Title -->
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <!-- Stories -->
+    {% include 'story/stories.html' %}
+
+    {% if request.user.is_superuser %}
+        <!-- Fast add post -->
+        {% include 'post/fast_add_post.html' %}
+    {% endif %}
+
+    <!-- Posts -->
+    {% include 'post/post_list.html' %}
+
+    <!-- Pagination -->
+    {% include 'blog/pagination.html' with page=posts %} <!-- Request 'page' -->
+
+    <script src="assets/js/app.min.js"></script>
+{% endblock %}

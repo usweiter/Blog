@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block body %}
+    {% if query %}
+        <h1 class="page__title">Результаты поиска "{{query}}"</h1>
+        <div class="search_results">
+            {% for post in results %}
+                <article class="post --framed">
+                    <div class="post__body">
+                        <h1 class="post__title"><p>{{post.title}}</p></h1>
+                        <p class="post__text">{{post.text|safe}}</p>
+                        <div class="post__footer">
+                            <ul class="post__info">{{post.published}}</ul>
+                            <a class="post__link" href="{{post.get_absolute_url}}">читать</a>
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <h1 class="page__title">По Вашему запросу не найдено результатов.</h1>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form action="." method="get">
+        {{form_search.query}}
+        <button type="submit">Поиск</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,191 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+        
+        <!-- Useful meta tags -->
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="robots" content="index, follow">
+        <meta name="google" content="notranslate">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="description" content="">
+        
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    
+    <body class="">
+        <header class="header">
+            <div class="header__left">
+                <button class="burger">
+                    <span>
+                        burger
+                    </span>
+                </button>
+                <nav>
+                    <ul class="header__ul">
+                        <li class="nav__link">
+                            <a class="nav__item" href="{% url 'home' %}">
+                                Главная
+                            </a>
+                        </li>
+                        <li class="nav__link">
+                            <a class="nav__item has-subnav" href="#">Статьи</a>
+                            <ul class="subnav">
+                                <li class="subnav__link">
+                                    <a class="subnav__item" href="#">Создание сайтов</a>
+                                </li>
+                                <li class="subnav__link">
+                                    <a class="subnav__item" href="#">Интернет маркетинг</a>
+                                </li>
+                                <li class="subnav__link">
+                                    <a class="subnav__item" href="#">Продвижение видео</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav__link"><a class="nav__item" href="#">Обо мне</a></li>
+                        <li class="nav__link"><a class="nav__item" href="#">Реклама</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header__right">
+                <nav>
+                    <ul>
+                        {% if user.is_authenticated %}
+                            <li class="nav__link">
+                                <a class="nav__item" href="{% url 'account:profile' %}">Профиль</a>
+                            </li>
+                            <li class="nav__link">
+                                <a class="nav__item" href="{% url 'logout' %}">Выйти</a>
+                            </li>
+                        {% else %}
+                            <li class="nav__link">
+                                <a class="nav__item" href="{% url 'login' %}">Войти</a>
+                            </li>
+                            <li class="nav__link">
+                                <a class="nav__item" href="{% url 'registration' %}">Регистрация</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <form class="search__form" action="/search/" method="get">
+                    <input class="search" placeholder="Поиск по блогу" type="text" name="query">
+                </form>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+            <div class="sidebar__header">
+                <img class="sidebar__background" src="https://i0.wp.com/itc.ua/wp-content/uploads/2018/11/RDR2.jpg?fit=1200%2C630&quality=100&strip=all&ssl=1" alt="">
+            </div>
+            <div class="sidebar__profile">
+                <div class="profile__wrap">
+                    <img class="profile__img" src="https://i.pinimg.com/originals/90/09/79/900979ebb3fe7ed2b6c0436a67ef02c3.jpg" alt="">
+                    <div class="profile__info">
+                        <p class="info__name">Arthur Morgan</p>
+                        <p class="info__desc">Five thousand dollars? For me? Can I turn myself in?</p>
+                    </div>
+                </div>
+                
+                <ul class="profile__socials">
+                    <li><a class="" href="https://www.instagram.com/ggueros/" target="_blank">
+                        <img src="{% static 'icons/instagram.svg' %}" alt="">
+                    </a></li>
+                    <li><a class="" href="https://vk.com/asdas5" target="_blank">
+                        <img src="{% static 'icons/vk.svg' %}" alt="">
+                    </a></li>
+                    <li><a class="" href="#" target="_blank">
+                        <img src="{% static 'icons/pinterest.svg' %}" alt="">
+                    </a></li>
+                </ul>
+                <div class="profile__about">
+                    <p>Member of Dutch van der Linde's gang</p>
+                </div>
+            </div>
+
+            <nav class="sidebar__nav">
+                <ul class="header__ul">
+                    <li class="nav__link">
+                        <a class="nav__item" href="{% url 'home' %}">
+                            Главная
+                        </a>
+                    </li>
+                    <li class="nav__link">
+                        <a class="nav__item has-subnav" href="#">Статьи</a>
+                        <ul class="subnav">
+                            <li class="subnav__link">
+                                <a class="subnav__item" href="#">Создание сайтов</a>
+                            </li>
+                            <li class="subnav__link">
+                                <a class="subnav__item" href="#">Интернет маркетинг</a>
+                            </li>
+                            <li class="subnav__link">
+                                <a class="subnav__item" href="#">Продвижение видео</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav__link nav__link--active"><a class="nav__item" href="#">Обо мне</a></li>
+                    <li class="nav__link"><a class="nav__item" href="#">Реклама</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav__link">
+                            <a class="nav__item" href="{% url 'account:profile' %}">Профиль</a>
+                        </li>
+                        <li class="nav__link">
+                            <a class="nav__item" href="{% url 'logout' %}">Выйти</a>
+                        </li>
+                    {% else %}
+                        <li class="nav__link">
+                            <a class="nav__item" href="{% url 'login' %}">Войти</a>
+                        </li>
+                        <li class="nav__link">
+                            <a class="nav__item" href="{% url 'registration' %}">Регистрация</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            </div>
+            <div class="sidebar__footer">
+                <a class="btn btn--red" href="https://github.com/usweiter" target="_blank">My robberies</a>
+                <button class="btn btn--blue" type="button" data-modal="write_me">Write me</button>
+            </div>
+        </aside>
+
+        <div class="page">
+            <main class="main">
+                {% block body %}{% endblock %}
+            </main>
+        </div>
+
+        <!-- Modal -->
+        <div id="modal">
+            <div id="write_me" class="modal__content">
+                <div class="close_modal">
+                    <span></span>
+                </div>
+                <form class="write_me__form" action=".">
+                    <input value="Автор" placeholder="Моя почта" type="email">
+                    <input placeholder="Ваш e-mail" type="email">
+                    <input placeholder="Текст сообщения" type="text">
+                    <button type="sumbit">Отправить</button>
+                </form>
+                <div class="write_me__info">
+                    <a class="grey_link" href="mailto:info@mywebsite.ru">e-mail:info@mywebsite.ru</a>
+                    <a class="grey_link" href="tel:854-246-785">тел: 854-246-785</a>
+                </div>
+            </div>
+
+            <div id="story" class="modal__content">
+                <div class="close_modal">
+                    <span></span>
+                </div>
+                <div id="modal__story__img"></div>
+            </div>
+        </div>
+    </body>
+    <script src="{% static 'js/app.min.js' %}"></script>
+</html>

@@ -1,0 +1,68 @@
+<div class="post__comments">
+	<h2>Обсуждение</h2>
+	{% if user.is_authenticated %}
+		<form class="form" action="." method="post">
+			{% csrf_token %}
+			<!-- <textarea class="comments__textarea" name="comments__textarea" placeholder="Текст комментария"></textarea> -->
+			{{form_comment.text}}
+			<div>
+				<button class="btn--send">Отправить</button>
+			</div>
+		</form>
+	{% else %}
+		<p>Необходимо войти!</p>
+	{% endif %}
+	
+	{% for comment in comment_list %}
+		<ul class="comments">
+			<li class="comments__item">
+				<div class="comments__wrap">
+					<div class="comments__profile">
+						<img class="comments__avatar" src="https://placehold.it/30" alt="">
+						<div class="comments__info">
+							<div class="comments__name">{{comment.author}}</div>
+							<time datetime="{{comment.updated|date:'Y-m-d'}}">
+								{{comment.updated|date:'Y-m-d f'}}
+							</time>
+						</div>
+					</div>
+					<p class="comments__text">{{comment.text}}</p>
+				<a class="do_answer" href="#">ответить</a>
+				</div>
+			</li>
+		</ul>
+	{% endfor %}
+
+<!-- 	<ul class="comments">
+		<li class="comments__item">
+			<div class="comments__wrap">
+				<div class="comments__profile">
+					<img class="comments__avatar" src="https://placehold.it/30" alt="">
+					<div class="comments__info">
+						<div class="comments__name">Датч Ван дер Линде</div>
+						<time datetime="2020-12-02 22:30">1 неделю назад</time>
+					</div>
+				</div>
+				<p class="comments__text">Et vestibulum, posuere tortor lacinia sit. Sagittis porttitor orci auctor in at tincidunt arcu egestas. Fusce arcu sodales lacinia eu auctor nunc nam id. Diam sit sed volutpat massa. Egestas ornare vel volutpat.</p>
+				<a class="do_answer" href="#">ответить</a>
+			</div>
+			
+			<ul class="comments">
+				<li class="comments__item">
+					<div class="comments__wrap">
+						<div class="comments__profile">
+							<img class="comments__avatar" src="https://placehold.it/30" alt="">
+							<div class="comments__info">
+								<div class="comments__name">Датч Ван дер Линде</div>
+								<time datetime="2020-12-02 22:30">1 неделю назад</time>
+							</div>
+						</div>
+						<p class="comments__text">Et vestibulum, posuere tortor lacinia sit. Sagittis porttitor orci auctor in at tincidunt arcu egestas. Fusce arcu sodales lacinia eu auctor nunc nam id. Diam sit sed volutpat massa. Egestas ornare vel volutpat.</p>
+						<a class="do_answer" href="#">ответить</a>
+					</div>
+					
+				</li>
+			</ul>
+		</li>
+	</ul> -->
+</div>
