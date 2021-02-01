@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from post.forms import FormAddPost, FormFastAddPost
 
-@login_required
 def home(request, tag=None):
     superuser = User.objects.get(username=settings.SUPERUSER_USERNAME)
 
@@ -28,7 +27,6 @@ def home(request, tag=None):
         posts = paginator.page(paginator.num_pages)
         
     return render(request, 'home/home.html', {
-        'page':page,
         'posts':posts,
         'stories':stories,
         'form':form

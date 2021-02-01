@@ -575,7 +575,7 @@ input[type='password']::placeholder{
 
 .header__right {
   display: flex;
-  width: 20%;}
+  }
 .header__right ul{display: flex;}
 .search__form{width: 100%;}
 .header .search {
@@ -1275,7 +1275,9 @@ input[type='password']::placeholder{
   }
   .page{margin-left: 0;}
   .header{width: 100%;}
-  .header .search{font-size: 1.6rem;}
+  .header .search{font-size: 1.2rem;
+    padding: 0;}
+  .fast-add-post__file,.fast-add-post__send{width: 3.4rem; height: 3.4rem}
 
 }
 
